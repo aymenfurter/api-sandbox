@@ -1,0 +1,28 @@
+---
+- name: Create temporary workdir /tmp/ag-demo/
+  file:
+    path: /tmp/ag-demo/
+    state: directory
+
+- name: Download Talend Runtime Docker Image
+  get_url: url=https://github.com/aymenfurter/talend-docker/archive/master.zip dest=/tmp/ag-demo/talend-docker.zip
+
+- name: Extract Talend Runtime Docker Image
+  unarchive:
+    remote_src: True
+    src: /tmp/ag-demo/talend-docker.zip
+    dest: /tmp/ag-demo/
+
+- name: Copy tos.zip file
+  copy:
+    remote_src: True
+    src: "{{ tos_zip_location }}"
+    dest: /tmp/ag-demo/talend-docker-master/tos.zip
+
+- name: Build & Push Docker Image Talend Runtime
+  shell: | 
+    docker build /tmp/ag-demo/talend-docker-master -t tos-beta:latest
+    docker login -u {{ docker_registry_username }} -p {{ docker_registry_password }}
+    docker tag tos-beta:latest {{ docker_registry_url }}/tos-beta:latest
+    docker push {{ docker_registry_url }}/tos-beta:latest
+  become: yes

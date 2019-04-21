@@ -1,0 +1,9 @@
+---
+- hosts: buildservers
+
+  roles:
+    - build-images
+- hosts: oc-client
+
+  roles:
+    - oc

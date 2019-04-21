@@ -1,0 +1,20 @@
+---
+- name: Download mock implementation
+  get_url: url=https://github.com/aymenfurter/openapi-cxf-osgi-mock/archive/master.zip dest=/tmp/ag-demo/openapi-cxf-osgi-mock.zip
+
+- name: Extract github repo zip
+  unarchive:
+    remote_src: True
+    src: /tmp/ag-demo/openapi-cxf-osgi-mock.zip
+    dest: /tmp/ag-demo/
+
+- name: Build OSGi Bundle
+  command: chdir=/tmp/ag-demo/openapi-cxf-osgi-mock-master/ mvn clean install
+
+- name: Build & Push Docker Image OSGi Bundle
+  shell: | 
+    docker build /tmp/ag-demo/openapi-cxf-osgi-mock-master/ -t openapi-cxf-osgi-mock:latest
+    docker login -u {{ docker_registry_username }} -p {{ docker_registry_password }}
+    docker tag openapi-cxf-osgi-mock:latest {{ docker_registry_url }}/openapi-cxf-osgi-mock:latest
+    docker push {{ docker_registry_url }}/openapi-cxf-osgi-mock:latest
+  become: yes

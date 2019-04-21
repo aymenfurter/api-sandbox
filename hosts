@@ -1,0 +1,5 @@
+[buildservers]
+#x0r.sh
+
+[oc-client]
+localhost ansible_connection=local

@@ -1,0 +1,6 @@
+---
+- name: Build Parent Image
+  import_tasks: main/1-parent-image.yml
+
+- name: Build Mock Image
+  import_tasks: main/2-mock-service.yml

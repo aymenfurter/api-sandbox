@@ -1,0 +1,12 @@
+tos_zip_location: /tmp/tos.zip
+
+openshift_master: https://api.starter-us-west-2.openshift.com
+openshift_token: whatever
+openshift_projectname: integration-test
+
+docker_registry_url: reg.x0r.sh
+docker_registry_username: yourdockerreguser
+docker_registry_password: yourdockerregpwd
+
+apigee_user: foo
+apigee_pwd: foo
