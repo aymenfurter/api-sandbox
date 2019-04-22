@@ -33,15 +33,3 @@
     oc tag {{ docker_registry_url }}/openapi-cxf-osgi-mock:latest openapi-cxf-osgi-mock --scheduled
     (cd /tmp && curl -O https://raw.githubusercontent.com/aymenfurter/openshift-templates/master/trun.template)
     oc process -f /tmp/trun.template -p SERVICE_NAME=openapi-cxf-osgi-mock | oc create -f -
-#    oc new-app --docker-image={{ docker_registry_url }}/openapi-cxf-osgi-mock:latest
-   # 
-#oc new-app --docker-image=reg.x0r.sh/talendmockws:latest
-#oc import-image talendmockws
-#oc tag reg.x0r.sh/talendmockws:latest talendmockws --scheduled
-#oc secrets new-dockercfg external-registry \
-#    --docker-username={{ docker_registry_username }} \
-#    --docker-password={{ docker_registry_password }} \
-#    --docker-email=aymen@x0r.sh \
-#    --docker-server={{ docker_registry_url
-
-# http://openapi-cxf-osgi-mock-integration-test.7e14.starter-us-west-2.openshiftapps.com/services
